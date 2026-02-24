@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEXAVO – AI Image Engine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#0f0f12;
+    color:#e4e4e7;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+/* subtle background depth */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.04), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03), transparent 40%);
+    z-index:-1;
+}
+
+/* container */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:0 24px;
+}
+
+/* NAV */
+nav{
+    position:sticky;
+    top:0;
+    width:100%;
+    backdrop-filter:blur(10px);
+    background:rgba(15,15,18,0.9);
+    border-bottom:1px solid #1f1f24;
+    z-index:1000;
+}
+
+.nav-inner{
+    max-width:1100px;
+    margin:auto;
+    padding:18px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-weight:700;
+    letter-spacing:2px;
+    font-size:15px;
+    white-space:nowrap;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+}
+
+.nav-links button{
+    padding:8px 20px;
+    border-radius:8px;
+    border:1px solid #26262b;
+    background:#17171b;
+    color:#e4e4e7;
+    cursor:pointer;
+    transition:.25s ease;
+    white-space:nowrap;
+}
+
+.nav-links button:hover{
+    background:#202026;
+}
+
+/* HERO */
+.hero{
+    padding:120px 0 100px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:54px;
+    font-weight:800;
+    margin-bottom:22px;
+    opacity:0;
+    transform:translateY(25px);
+    animation:fadeUp .9s ease forwards;
+}
+
+.hero p{
+    max-width:680px;
+    margin:auto;
+    opacity:0;
+    transform:translateY(25px);
+    animation:fadeUp .9s ease .2s forwards;
+    color:#b4b4bc;
+}
+
+.hero-actions{
+    margin-top:45px;
+    opacity:0;
+    transform:translateY(25px);
+    animation:fadeUp .9s ease .4s forwards;
+}
+
+.primary-btn{
+    padding:15px 38px;
+    border-radius:10px;
+    border:none;
+    background:#f4f4f5;
+    color:#111;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+.primary-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(255,255,255,0.08);
+}
+
+/* SECTIONS */
+section{
+    padding:90px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+    font-size:28px;
+    font-weight:700;
+}
+
+/* FEATURES */
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+}
+
+.feature-card{
+    background:#17171b;
+    border:1px solid #26262b;
+    padding:36px;
+    border-radius:14px;
+    transition:.3s ease;
+    opacity:0;
+    transform:translateY(30px);
+}
+
+.feature-card:hover{
+    border-color:#3a3a42;
+    transform:translateY(-6px);
+}
+
+.feature-card.show{
+    opacity:1;
+    transform:translateY(0);
+    transition:.8s ease;
+}
+
+.feature-card strong{
+    display:block;
+    margin-bottom:12px;
+    font-size:17px;
+}
+
+/* FAQ */
+#help{
+    max-width:720px;
+    margin:auto;
+}
+
+.faq-item{
+    border-bottom:1px solid #26262b;
+}
+
+.faq-question{
+    padding:20px 0;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:500;
+}
+
+.faq-icon{
+    transition:.3s ease;
+    opacity:.6;
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+    color:#b4b4bc;
+}
+
+.faq-answer p{
+    padding-bottom:20px;
+}
+
+.faq-item.active .faq-answer{
+    max-height:200px;
+}
+
+.faq-item.active .faq-icon{
+    transform:rotate(180deg);
+}
+
+/* FOOTER */
+footer{
+    border-top:1px solid #1f1f24;
+    text-align:center;
+    padding:50px 0;
+    margin-top:80px;
+    font-size:14px;
+    opacity:.6;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .features-grid{
+        grid-template-columns:1fr;
+    }
+    .hero h1{
+        font-size:40px;
+    }
+}
+
+@media(max-width:500px){
+    .nav-inner{
+        padding:16px 18px;
+    }
+    .logo{
+        font-size:14px;
+        letter-spacing:1.5px;
+    }
+    .nav-links button{
+        padding:6px 14px;
+        font-size:13px;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="logo">TEXAVO</div>
+        <div class="nav-links">
+            <button onclick="scrollToHelp()">FAQ</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+<section class="hero">
+    <h1>TEXAVO</h1>
+    <p>
+        A performance-focused console application built for image text translation,
+        inpainting and intelligent enhancement workflows.
+    </p>
+
+    <div class="hero-actions">
+        <button class="primary-btn" onclick="downloadFile()">
+            Download v1.1.0
+        </button>
+    </div>
+</section>
+
+<section>
+    <div class="section-title">Core Modules</div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <strong>Image Text Translation</strong>
+            Extract, translate and rewrite text directly inside images.
+        </div>
+        <div class="feature-card">
+            <strong>Text Removal</strong>
+            Clean and prepare images for accurate rewriting.
+        </div>
+        <div class="feature-card">
+            <strong>Smart Colorize</strong>
+            Apply grayscale color mapping with contrast enhancement.
+        </div>
+        <div class="feature-card">
+            <strong>Image Enhancement</strong>
+            Sharpening, CLAHE contrast optimization and noise reduction.
+        </div>
+    </div>
+</section>
+
+<section id="help">
+    <div class="section-title">FAQ</div>
+
+    <div class="faq-item">
+        <div class="faq-question">
+            What is TEXAVO?
+            <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+            <p>TEXAVO is a CLI-based AI image processing engine focused on translation and enhancement workflows.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">
+            Does it require a GUI?
+            <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+            <p>No. It runs entirely inside the console environment.</p>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+© 2026 TEXAVO Engine
+</footer>
+
+</div>
+
+<script>
+function scrollToHelp(){
+    document.getElementById("help").scrollIntoView({behavior:"smooth"});
+}
+
+function downloadFile(){
+    const link=document.createElement("a");
+    link.href="PUT_YOUR_DIRECT_LINK_HERE";
+    link.download="TEXAVO_v1.1.0.zip";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+/* FAQ toggle */
+document.querySelectorAll('.faq-question').forEach(q=>{
+    q.addEventListener('click',()=>{
+        q.parentElement.classList.toggle('active');
+    });
+});
+
+/* reveal cards */
+const cards=document.querySelectorAll('.feature-card');
+function reveal(){
+    const trigger=window.innerHeight*0.85;
+    cards.forEach(card=>{
+        if(card.getBoundingClientRect().top<trigger){
+            card.classList.add('show');
+        }
+    });
+}
+window.addEventListener('scroll',reveal);
+reveal();
+</script>
+
+</body>
+</html>
