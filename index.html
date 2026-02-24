@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEXAVO – AI Image Engine</title>
+<title>TEXAVO – AI Engine</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -18,7 +18,6 @@ body{
     overflow-x:hidden;
 }
 
-/* subtle background depth */
 body::before{
     content:"";
     position:fixed;
@@ -29,14 +28,12 @@ body::before{
     z-index:-1;
 }
 
-/* container */
 .container{
     max-width:1100px;
     margin:auto;
     padding:0 24px;
 }
 
-/* NAV */
 nav{
     position:sticky;
     top:0;
@@ -83,7 +80,6 @@ nav{
     background:#202026;
 }
 
-/* HERO */
 .hero{
     padding:120px 0 100px;
     text-align:center;
@@ -131,7 +127,6 @@ nav{
     box-shadow:0 15px 35px rgba(255,255,255,0.08);
 }
 
-/* SECTIONS */
 section{
     padding:90px 0;
 }
@@ -143,7 +138,6 @@ section{
     font-weight:700;
 }
 
-/* FEATURES */
 .features-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -177,7 +171,6 @@ section{
     font-size:17px;
 }
 
-/* FAQ */
 #help{
     max-width:720px;
     margin:auto;
@@ -220,7 +213,6 @@ section{
     transform:rotate(180deg);
 }
 
-/* FOOTER */
 footer{
     border-top:1px solid #1f1f24;
     text-align:center;
@@ -230,7 +222,6 @@ footer{
     opacity:.6;
 }
 
-/* ANIMATION */
 @keyframes fadeUp{
     to{
         opacity:1;
@@ -238,7 +229,6 @@ footer{
     }
 }
 
-/* RESPONSIVE */
 @media(max-width:900px){
     .features-grid{
         grid-template-columns:1fr;
@@ -285,7 +275,7 @@ footer{
 
     <div class="hero-actions">
         <button class="primary-btn" onclick="downloadFile()">
-            Download v1.1.0
+            Download v1.0
         </button>
     </div>
 </section>
@@ -357,14 +347,12 @@ function downloadFile(){
     document.body.removeChild(link);
 }
 
-/* FAQ toggle */
 document.querySelectorAll('.faq-question').forEach(q=>{
     q.addEventListener('click',()=>{
         q.parentElement.classList.toggle('active');
     });
 });
 
-/* reveal cards */
 const cards=document.querySelectorAll('.feature-card');
 function reveal(){
     const trigger=window.innerHeight*0.85;
